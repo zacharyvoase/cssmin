@@ -204,6 +204,7 @@ def cssmin(css, wrap=None):
 
 def main():
     import optparse
+    import sys
     
     p = optparse.OptionParser(
         prog="cssmin", version=__version__,
