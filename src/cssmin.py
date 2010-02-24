@@ -144,10 +144,10 @@ def condense_hex_colors(css):
     regex = re.compile(r"([^\"'=\s])(\s*)#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])")
     match = regex.search(css)
     while match:
-        first = m.group(3) + m.group(5) + m.group(7)
-        second = m.group(4) + m.group(6) + m.group(8)
+        first = match.group(3) + match.group(5) + match.group(7)
+        second = match.group(4) + match.group(6) + match.group(8)
         if first.lower() == second.lower():
-            css = css.replace(m.group(), m.group(1) + m.group(2) + '#' + first)
+            css = css.replace(match.group(), match.group(1) + match.group(2) + '#' + first)
             match = regex.search(css, match.end() - 3)
         else:
             match = regex.search(css, match.end())
