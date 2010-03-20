@@ -29,7 +29,7 @@ setup(
     author_email     = "zacharyvoase@me.com",
     url              = 'http://bitbucket.org/zacharyvoase/cssmin',
     description      = "A Python port of the YUI CSS compression algorithm.",
-    py_modules       = ['cssmin'],
+    packages         = find_packages(where='src'),
     package_dir      = {'': 'src'},
     entry_points     = {'console_scripts': ['cssmin = cssmin:main']},
 )
