@@ -1,5 +1,3 @@
-<!--*-markdown-*-->
-
 # `cssmin`
 
 This is a Python port of the [YUI CSS Compressor][yuicompressor]. Install it:
