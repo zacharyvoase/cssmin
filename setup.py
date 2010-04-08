@@ -27,7 +27,7 @@ setup(
     version          = get_version(),
     author           = "Zachary Voase",
     author_email     = "zacharyvoase@me.com",
-    url              = 'http://bitbucket.org/zacharyvoase/cssmin',
+    url              = 'http://github.com/zacharyvoase/cssmin',
     description      = "A Python port of the YUI CSS compression algorithm.",
     packages         = find_packages(where='src'),
     package_dir      = {'': 'src'},
