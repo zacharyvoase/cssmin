@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# `cssmin.py` - A Python port of the YUI CSS compressor.
+"""`cssmin` - A Python port of the YUI CSS compressor."""
 
 
 from StringIO import StringIO # The pure-Python StringIO supports unicode.
