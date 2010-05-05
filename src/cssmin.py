@@ -5,10 +5,11 @@
 
 
 from StringIO import StringIO # The pure-Python StringIO supports unicode.
+import operator
 import re
 
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 
 def remove_comments(css):
@@ -106,8 +107,8 @@ def normalize_rgb_colors_to_hex(css):
     regex = re.compile(r"rgb\s*\(\s*([0-9,\s]+)\s*\)")
     match = regex.search(css)
     while match:
-        colors = match.group(1).split(",")
-        hexcolor = '#%.2x%.2x%.2x' % map(int, colors)
+        colors = map(operator.methodcaller('strip'), match.group(1).split(","))
+        hexcolor = '#%.2x%.2x%.2x' % tuple(map(int, colors))
         css = css.replace(match.group(), hexcolor)
         match = regex.search(css)
     return css
