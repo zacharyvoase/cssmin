@@ -8,7 +8,7 @@ from StringIO import StringIO # The pure-Python StringIO supports unicode.
 import re
 
 
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 
 def remove_comments(css):
