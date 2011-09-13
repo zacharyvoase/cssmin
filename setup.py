@@ -4,7 +4,12 @@
 import os
 import re
 
-from distribute_setup import use_setuptools; use_setuptools()
+try:
+    import setuptools
+except ImportError:
+    from distribute_setup import use_setuptools
+    use_setuptools()
+
 from setuptools import setup, find_packages
 
 
