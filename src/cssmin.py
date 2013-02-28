@@ -3,8 +3,6 @@
 
 """`cssmin` - A Python port of the YUI CSS compressor."""
 
-
-from StringIO import StringIO # The pure-Python StringIO supports unicode.
 import re
 
 
@@ -49,15 +47,13 @@ def remove_unnecessary_whitespace(css):
     """Remove unnecessary whitespace characters."""
     
     def pseudoclasscolon(css):
-        
         """
         Prevents 'p :link' from becoming 'p:link'.
         
         Translates 'p :link' into 'p ___PSEUDOCLASSCOLON___link'; this is
         translated back again later.
         """
-        
-        regex = re.compile(r"(^|\})(([^\{\:])+\:)+([^\{]*\{)")
+        regex = re.compile(r"(^|\})(([^\{\:])+\:)+([^\{]*\{)", re.U)
         match = regex.search(css)
         while match:
             css = ''.join([
@@ -69,21 +65,21 @@ def remove_unnecessary_whitespace(css):
     
     css = pseudoclasscolon(css)
     # Remove spaces from before things.
-    css = re.sub(r"\s+([!{};:>+\(\)\],])", r"\1", css)
+    css = re.sub(r"\s+([!{};:>+\(\)\],])", r"\1", css, flags=re.U)
     
     # If there is a `@charset`, then only allow one, and move to the beginning.
-    css = re.sub(r"^(.*)(@charset \"[^\"]*\";)", r"\2\1", css)
-    css = re.sub(r"^(\s*@charset [^;]+;\s*)+", r"\1", css)
+    css = re.sub(r"^(.*)(@charset \"[^\"]*\";)", r"\2\1", css, flags=re.U)
+    css = re.sub(r"^(\s*@charset [^;]+;\s*)+", r"\1", css, flags=re.U)
     
     # Put the space back in for a few cases, such as `@media screen` and
     # `(-webkit-min-device-pixel-ratio:0)`.
-    css = re.sub(r"\band\(", "and (", css)
+    css = re.sub(r"\band\(", "and (", css, flags=re.U)
     
     # Put the colons back.
     css = css.replace('___PSEUDOCLASSCOLON___', ':')
     
     # Remove spaces from after things.
-    css = re.sub(r"([!{}:;>+\(\[,])\s+", r"\1", css)
+    css = re.sub(r"([!{}:;>+\(\[,])\s+", r"\1", css, flags=re.U)
     
     return css
 
@@ -91,19 +87,19 @@ def remove_unnecessary_whitespace(css):
 def remove_unnecessary_semicolons(css):
     """Remove unnecessary semicolons."""
     
-    return re.sub(r";+\}", "}", css)
+    return re.sub(r";+\}", "}", css, flags=re.U)
 
 
 def remove_empty_rules(css):
     """Remove empty rules."""
     
-    return re.sub(r"[^\}\{]+\{\}", "", css)
+    return re.sub(r"[^\}\{]+\{\}", "", css, flags=re.U)
 
 
 def normalize_rgb_colors_to_hex(css):
     """Convert `rgb(51,102,153)` to `#336699`."""
     
-    regex = re.compile(r"rgb\s*\(\s*([0-9,\s]+)\s*\)")
+    regex = re.compile(r"rgb\s*\(\s*([0-9,\s]+)\s*\)", re.U)
     match = regex.search(css)
     while match:
         colors = map(lambda s: s.strip(), match.group(1).split(","))
@@ -116,7 +112,7 @@ def normalize_rgb_colors_to_hex(css):
 def condense_zero_units(css):
     """Replace `0(px, em, %, etc)` with `0`."""
     
-    return re.sub(r"([\s:])(0)(px|em|%|in|cm|mm|pc|pt|ex)", r"\1\2", css)
+    return re.sub(r"([\s:])(0)(px|em|%|in|cm|mm|pc|pt|ex)", r"\1\2", css, flags=re.U)
 
 
 def condense_multidimensional_zeros(css):
@@ -135,13 +131,16 @@ def condense_multidimensional_zeros(css):
 def condense_floating_points(css):
     """Replace `0.6` with `.6` where possible."""
     
-    return re.sub(r"(:|\s)0+\.(\d+)", r"\1.\2", css)
+    return re.sub(r"(:|\s)0+\.(\d+)", r"\1.\2", css, flags=re.U)
 
 
 def condense_hex_colors(css):
     """Shorten colors from #AABBCC to #ABC where possible."""
     
-    regex = re.compile(r"([^\"'=\s])(\s*)#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])")
+    regex = re.compile(
+        r"([^\"'=\s])(\s*)#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+        re.U
+    )
     match = regex.search(css)
     while match:
         first = match.group(3) + match.group(5) + match.group(7)
@@ -157,13 +156,13 @@ def condense_hex_colors(css):
 def condense_whitespace(css):
     """Condense multiple adjacent whitespace characters into one."""
     
-    return re.sub(r"\s+", " ", css)
+    return re.sub(r"\s+", " ", css, flags=re.U)
 
 
 def condense_semicolons(css):
     """Condense multiple adjacent semicolon characters into one."""
     
-    return re.sub(r";;+", ";", css)
+    return re.sub(r";;+", ";", css, flags=re.U)
 
 
 def wrap_css_lines(css, line_length):
