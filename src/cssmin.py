@@ -3,8 +3,10 @@
 
 """`cssmin` - A Python port of the YUI CSS compressor."""
 
-
-from StringIO import StringIO # The pure-Python StringIO supports unicode.
+try:
+    from StringIO import StringIO # The pure-Python StringIO supports unicode.
+except ImportError:
+    from io import StringIO
 import re
 
 
