@@ -32,4 +32,5 @@ setup(
     py_modules       = ['cssmin'],
     package_dir      = {'': 'src'},
     entry_points     = {'console_scripts': ['cssmin = cssmin:main']},
+    test_suite       = 'test_cssmin',
 )
