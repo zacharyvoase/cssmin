@@ -14,4 +14,17 @@ setup(
     py_modules       = ['cssmin'],
     package_dir      = {'': 'src'},
     entry_points     = {'console_scripts': ['cssmin = cssmin:main']},
+    classifiers      = [
+        'Development Status :: 5 - Production/Stable',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
+        'License :: OSI Approved :: BSD License',
+    ],
+    keywords         = 'css, minifier, yui, css compression',
+    license          = 'BSD License',
 )
