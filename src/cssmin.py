@@ -131,6 +131,9 @@ def condense_multidimensional_zeros(css):
     # Revert `background-position:0;` to the valid `background-position:0 0;`.
     css = css.replace("background-position:0;", "background-position:0 0;")
 
+    # Revert `box=shadow:0;`, webkit says that the property has a bad format.
+    css = css.replace("box-shadow:0;", "box-shadow:0 0;")
+
     return css
 
 
