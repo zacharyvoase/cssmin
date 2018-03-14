@@ -6,7 +6,7 @@ from setuptools import setup
 
 setup(
     name             = 'cssmin',
-    version          = '0.2.0',
+    version          = '0.2.1',
     author           = "Zachary Voase",
     author_email     = "zacharyvoase@me.com",
     url              = 'http://github.com/zacharyvoase/cssmin',
